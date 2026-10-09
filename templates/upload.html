@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Notes</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Upload B.Tech Notes</h2>
+        
+        <form action="/upload" method="POST" enctype="multipart/form-data">
+            <label>Title:</label>
+            <input type="text" name="title" placeholder="e.g. Python Unit-1 Notes" required>
+
+            <label>Description:</label>
+            <textarea name="description" rows="3" placeholder="Description of the notes..." required></textarea>
+
+            <label>Select Year:</label>
+            <select name="year" id="uploadYear" onchange="filterUploadSubjects()" required>
+                <option value="">-- Select Year --</option>
+                <option value="1">1st Year</option>
+                <option value="2">2nd Year</option>
+                <option value="3">3rd Year</option>
+                <option value="4">4th Year</option>
+            </select>
+
+            <label>Select Subject:</label>
+            <select name="subject_id" id="uploadSubject" required>
+                <option value="">-- Choose Subject --</option>
+                {% for sub in subjects %}
+                    <option value="{{ sub.id }}" data-year="{{ sub.semester }}">{{ sub.subject_name }}</option>
+                {% endfor %}
+            </select>
+
+            <label>Select PDF File:</label>
+            <input type="file" name="file" accept=".pdf" required>
+
+            <button type="submit" class="btn-filter" style="width: 100%; margin-top: 20px; padding: 12px;">📤 Upload Notes</button>
+        </form>
+
+        <div class="upload-link-wrapper">
+            <a href="/notes" class="upload-link">⬅ Back to Notes Library</a>
+        </div>
+    </div>
+
+    <script>
+    function filterUploadSubjects() {
+        var year = document.getElementById("uploadYear").value;
+        var subjectDropdown = document.getElementById("uploadSubject");
+        var options = subjectDropdown.getElementsByTagName("option");
+
+        for (var i = 0; i < options.length; i++) {
+            var opt = options[i];
+            var subYear = opt.getAttribute("data-year");
+
+            if (!subYear) continue;
+
+            if (year === "" || subYear === year) {
+                opt.style.display = "block";
+                opt.disabled = false;
+            } else {
+                opt.style.display = "none";
+                opt.disabled = true;
+            }
+        }
+        subjectDropdown.value = "";
+    }
+    </script>
+</body>
+</html>

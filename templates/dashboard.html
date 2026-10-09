@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome - B.Tech Notes Sharing System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container" style="max-width: 620px; text-align: center;">
+        <h2>Welcome to Online Notes Sharing System</h2>
+        <p style="color: #94a3b8; font-size: 15px; line-height: 1.6; margin-bottom: 24px;">
+            Access, upload, and organize year-wise engineering study notes with ease.
+        </p>
+
+        <div class="auth-links">
+            <a href="/login" class="auth-btn auth-btn-primary">🔑 Login</a>
+            <a href="/register" class="auth-btn auth-btn-secondary">📝 Register</a>
+        </div>
+    </div>
+</body>
+</html>
